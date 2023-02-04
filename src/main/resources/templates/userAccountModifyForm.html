@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+      lang="en">
+<head>
+  <title>
+    User account modify form
+  </title>
+</head>
+<body>
+<div>
+  <section layout:fragment="content">
+    <div class="container">
+      <h2 style="text-align: center">
+        <strong>
+          CHANGE YOUR ACCOUNT DETAILS
+        </strong>
+      </h2>
+      <form action="#" th:action="@{/user/account/update}" method="post" th:object="${userAccountDetailsToModify}">
+        <input type="hidden" name="id" th:value="${#authentication.getPrincipal().getId()}" class="form-control" id>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="form-group col-md-5">
+            <label for="inputFirstName">FIRST NAME</label>
+            <input type="text" name="firstName" th:value="${#authentication.getPrincipal().getFirstName}" class="form-control" id="inputFirstName" placeholder="Enter first name">
+          </div>
+          <div class="form-group col-md-5">
+            <label for="inputLastName">LAST NAME</label>
+            <input type="text" name="lastName" th:value="${#authentication.getPrincipal().getLastName}" class="form-control" id="inputLastName" placeholder="Enter last name">
+          </div>
+          <div class="form-group col-md-5">
+            <label for="inputPassword">PASSWORD</label>
+            <input type="password" name="password" th:value="${#authentication.getPrincipal().getPassword()}" class="form-control" id="inputPassword" placeholder="Enter password">
+          </div>
+          <div class="form-group  col-md-5">
+            <button type="submit" class="btn btn-primary btn-block" id="submit">
+              SAVE CHANGES
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+</body>
+</html>

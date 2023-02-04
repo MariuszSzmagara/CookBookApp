@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="https://www.thymeleaf.org"
+      layout:decorate="~{layouts/main-layout.html}"
+      lang="en">
+<head>
+    <title>
+        Recipe view
+    </title>
+</head>
+<body>
+<div>
+    <section layout:fragment="content">
+        <div class="container">
+            <div class="col-md-8">
+                <div th:switch="${recipeToDisplay.category.name()}">
+                    <a th:href="|/recipe/${recipeToDisplay.id}/display|">
+                        <img th:case="'BREAKFAST'" th:src="@{/images/amaranth-color.jpg}">
+                        <img th:case="'LUNCH'" th:src="@{/images/coquelicot-color.jpg}">
+                        <img th:case="'DINNER'" th:src="@{/images/glaucous-color.jpg}">
+                        <img th:case="'SNACKS'" th:src="@{/images/phlox-color.jpg}">
+                        <img th:case="'DESSERT'" th:src="@{/images/aureolin-color.jpg}">
+                    </a>
+                </div>
+                <div>
+                    <i class="glyphicon glyphicon-time"></i>
+                    <time
+                            th:text="|Preparation time:
+                            ${recipeToDisplay.preparationTime.getValue()}
+                            ${recipeToDisplay.preparationTime.getTimeUnit()}|">
+                    </time>
+                    <i th:each="serve : ${#numbers.sequence(1, recipeToDisplay.getServes())}" class="glyphicon glyphicon-user"></i>
+                    <i>Serves</i>
+                    <div>
+                        <i th:text="${recipeToDisplay.category.name()}">Recipe category</i>
+                    </div>
+                    <div>
+                        <i th:text="|Likes: ${recipeToDisplay.getLikesCounter()}|">Recipe likes number</i>
+                        <div>
+                            <form th:action="|/recipe/${recipeToDisplay.id}/updateLikesCounter/like|" method="post">
+                                <button type="submit" style="border: none; background-color: white">
+                                    <a type="submit" class="fa fa-thumbs-up"  style="color: black"></a>
+                                </button>
+                            </form>
+                            <form th:action="|/recipe/${recipeToDisplay.id}/delete|" method="post">
+                                <button type="submit" style="border: none; background-color: white">
+                                    <a class="glyphicon glyphicon-floppy-remove" style="color: black"></a>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2><a th:text="${recipeToDisplay.title}">Title of the recipe</a></h2>
+                </div>
+                <h4>INGREDIENTS:</h4>
+                <div>
+                    <ul>
+                        <li th:each="ingredient : ${recipeToDisplay.getIngredients()}">
+                            <span th:text="|${ingredient.getQuantity()}  ${ingredient.getMeasurement()} - ${ingredient.getName()} |"></span>
+                        </li>
+
+                    </ul>
+                </div>
+                <h4>PREPARATION INSTRUCTIONS:</h4>
+                <div class="list-group" th:utext="${recipeToDisplay.preparationInstructions}">
+
+                </div>
+                <div class="col-12">
+                    <a th:href="|/recipe/${recipeToDisplay.id}/modify|">MODIFY</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

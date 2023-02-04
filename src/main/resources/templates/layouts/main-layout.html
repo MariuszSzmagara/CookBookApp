@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head layout:replace="~{fragments/heads :: common-head}">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">
+        COOKBOOK
+    </title>
+<body>
+<header layout:replace="~{fragments/headers :: common-header}">
+    Static common-header for prototyping purposes only.
+</header>
+<section layout:fragment="content">
+    <h1>
+        Static content for prototyping purposes only.
+    </h1>
+</section>
+<footer layout:replace="~{fragments/footers :: common-footer}">
+    Static common-footer for prototyping purposes only.
+</footer>
+</body>
+</html>

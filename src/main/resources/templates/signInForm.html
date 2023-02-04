@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+      lang="en">
+<head>
+  <title>
+    Sign in form
+  </title>
+</head>
+<body>
+<div>
+  <section layout:fragment="content">
+    <div class="container">
+      <form th:action="@{/signIn}" method="post">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="form-group col-md-3">
+            <h2 style="text-align: center">
+              PLEASE SIGN IN
+            </h2>
+            <p th:text="${messageSignUpCompletedSuccessfully}" style="color: limegreen">MESSAGE SUCCESSFULLY SIGN UP</p>
+            <p th:text="${messageUpdateAccountCompletedSuccessfully}" style="color: limegreen">MESSAGE SUCCESSFULLY UPDATED ACCOUNT DETAILS</p>
+            <p th:if="${signInError}" class="error" style="color: red">WRONG USERNAME OR PASSWORD! PLEASE TRY AGAIN</p>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inputUserName">USER NAME</label>
+            <input name="username" type="text" class="form-control" id="inputUserName" placeholder="Enter user name...">
+            <div class="invalid-feedback">Example invalid feedback text</div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inputUserPassword">PASSWORD</label>
+            <input name="password" type="text" class="form-control" id="inputUserPassword" placeholder="Enter password...">
+          </div>
+          <div class="form-group col-md-3">
+            <button type="submit" value="Login" class="btn btn-primary btn-block" id="submit">
+              SIGN IN
+            </button>
+          </div>
+          <div class="form-group col-md-3">
+          <span>
+            Don't have an account yet?
+            <a th:href="@{/signUp}">
+              SIGN UP
+            </a>
+          </span>
+          </div>
+          <div class="form-group col-md-3">
+            <a th:href="@{/password/reset}">
+              Forgot your password?
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+</body>
+</html>

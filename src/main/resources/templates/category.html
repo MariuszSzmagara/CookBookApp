@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/main-layout.html}"
+      lang="en">
+<head>
+    <title th:text="|${categoryName} - recipes|">
+        CATEGORY NAME - recipes
+    </title>
+</head>
+<body>
+<div>
+    <section layout:fragment="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-6" th:each="recipeByCategory : ${recipesListByCategory}">
+                    <div class="recipe-box">
+                        <div class="box-image" th:switch="${recipeByCategory.category.name()}">
+                            <a th:href="|/recipe/${recipeByCategory.id}/display|">
+                                <img th:case="'BREAKFAST'" th:src="@{/images/amaranth-color.jpg}">
+                                <img th:case="'LUNCH'" th:src="@{/images/coquelicot-color.jpg}">
+                                <img th:case="'DINNER'" th:src="@{/images/glaucous-color.jpg}">
+                                <img th:case="'SNACKS'" th:src="@{/images/phlox-color.jpg}">
+                                <img th:case="'DESSERT'" th:src="@{/images/aureolin-color.jpg}">
+                            </a>
+                        </div>
+                        <div class="box-content"></div>
+                        <i class="glyphicon glyphicon-time"></i>
+                        <time
+                                th:text="|Preparation time:
+                                ${recipeByCategory.preparationTime.getValue()}
+                                ${recipeByCategory.preparationTime.getTimeUnit()}|">
+                        </time>
+                        <i th:each="serve : ${#numbers.sequence(1, recipeByCategory.getServes())}" class="glyphicon glyphicon-user"></i>
+                        <i>Serves</i>
+                        <div>
+                            <div>
+                                <i th:text="${recipeByCategory.category.name()}">Recipe category</i>
+                            </div>
+                            <div>
+                                <i th:text="|Likes: ${recipeByCategory.getLikesCounter()}|">Recipe likes number</i>
+                                <div>
+                                    <form th:action="|/recipe/${recipeByCategory.id}/updateLikesCounter/like|" method="post">
+                                        <button type="submit" style="border: none; background-color: white">
+                                            <a type="submit" class="fa fa-thumbs-up"  style="color: black"></a>
+                                        </button>
+                                    </form>
+                                    <form th:action="|/recipe/${recipeByCategory.id}/delete|" method="post">
+                                        <button type="submit" style="border: none; background-color: white">
+                                            <a class="glyphicon glyphicon-floppy-remove" style="color: black"></a>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <h2><a th:href="|/display/recipe/${recipeByCategory.id}|"
+                               th:text="${recipeByCategory.title}">Title of the recipe</a></h2>
+                        <div class="box-meta">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

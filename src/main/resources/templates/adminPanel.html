@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="https://www.thymeleaf.org"
+      layout:decorate="~{layouts/main-layout.html}"
+      lang="en">
+<head>
+    <title>Admin panel</title>
+</head>
+<body>
+<div>
+    <section layout:fragment="content">
+        <div class="container">
+            <form action="#" th:action="@{/admin/panel/addNewUser}" method="post" th:object="${newUser}">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <h2>
+                        ADD NEW USER
+                    </h2>
+                    <div class="form-group col-md-12">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="inputFirstName">FIRST NAME</label>
+                                <input type="text" th:field="*{firstName}" class="form-control" id="inputFirstName" placeholder="Enter first name">
+                            </div>
+                            <div class="col-sm">
+                                <label for="inputLastName">LAST NAME</label>
+                                <input type="text"  th:field="*{lastName}" class="form-control" id="inputLastName" placeholder="Enter last name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="inputDateOfBirth">DATE OF BIRTH</label>
+                                <input type="date"  th:field="*{dateOfBirth}" class="form-control" id="inputDateOfBirth" placeholder="Choose date of birth">
+                            </div>
+                            <div class="col-sm">
+                                <label for="inputEmailAddress">EMAIL ADDRESS</label>
+                                <p th:errors="*{emailAddress}">Email errors</p>
+                                <input type="text"  th:field="*{emailAddress}" class="form-control" id="inputEmailAddress" placeholder="Enter email address">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="form-check-label" for="inputSignedUpForNewsletter">SIGNED UP FOR NEWSLETTER</label>
+                        <input type="checkbox"  th:field="*{signedUpForNewsletter}" class="form-check-input" id="inputSignedUpForNewsletter">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label class="form-check-label" for="inputAddressStreet">ADDRESS STREET</label>
+                        <input type="text"  th:field="*{address.streetFlatAndHouseNumber}" class="form-control" id="inputAddressStreet">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="inputUserName">USER NAME</label>
+                                <input type="text"  th:field="*{userName}" class="form-control" id="inputUserName" placeholder="Enter user name">
+                            </div>
+                            <div class="col-sm">
+                                <label for="inputPassword">PASSWORD</label>
+                                <input type="text"  th:field="*{password} "class="form-control" id="inputPassword" placeholder="Enter password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group  col-md-12">
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary btn-block" id="submit">
+                                ADD NEW USER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <h2>
+                    LIST OF USERS
+                </h2>
+                <div class="form-group col-md-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">FIRS NAME</th>
+                            <th scope="col">LAST NAME</th>
+                            <th scope="col">DATE OF BIRTH</th>
+                            <th scope="col">EMAIL ADDRESS</th>
+                            <th scope="col">USER NAME</th>
+                            <th scope="col">ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user, iterationStatus : ${usersListWithoutAuthenticated}">
+                            <td>
+                                <a type="number" th:href="|/admin/panel/modifyUser/${user.id}|" th:text="${iterationStatus.count}" class="form-control"></a>
+                            </td>
+                            <td>
+                                <a type="text" th:href="|/admin/panel/modifyUser/${user.id}|" th:text="${user.firstName}" class="form-control"></a>
+                            </td>
+                            <td>
+                                <a type="text" th:href="|/admin/panel/modifyUser/${user.id}|" th:text="${user.lastName}" class="form-control"></a>
+                            </td>
+                            <td>
+                                <a type="text" th:href="|/admin/panel/modifyUser/${user.id}|" th:text="${user.dateOfBirth}" class="form-control"></a>
+                            </td>
+                            <td>
+                                <a type="text" th:href="|/admin/panel/modifyUser/${user.id}|" th:text="${user.emailAddress}" class="form-control"></a>
+                            </td>
+                            <td>
+                                <a type="text" th:href="|/admin/panel/modifyUser/${user.id}|" th:text="${user.userName}" class="form-control"></a>
+                            </td>
+                            <td>
+                                <form th:action="|/admin/panel/deleteUser/${user.id}|" method="post">
+                                    <button type="submit" class="btn btn-primary">
+                                        DELETE
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

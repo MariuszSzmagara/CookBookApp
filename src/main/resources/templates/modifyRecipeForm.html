@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+      lang="en">
+
+<head>
+    <title>
+        Modify recipe form
+    </title>
+</head>
+<body>
+<div>
+    <section layout:fragment="content">
+        <div class="container">
+            <h2 th:text="|MODIFY RECIPE - ${recipeToModify.title.toUpperCase()}|"></h2>
+            <form action="#" th:action="|/recipe/${recipeToModify.id}/update|" method="post" th:object="${recipeToModify}">
+                <div class="d-flex flex-column">
+                    <div class="form-group col-md-8">
+                        <label for="inputName">TITLE OF RECIPE</label>
+                        <input type="text" th:field="*{title}" class="form-control" id="inputName">
+                    </div>
+                    <h2>
+                        PREPARATION TIME:
+                    </h2>
+                    <div class="form-group col-md-8">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="inputValue">VALUE</label>
+                                <input type="number" th:field="*{preparationTime.value}" class="form-control" step="1" id="inputValue">
+                            </div>
+                            <div class="col-sm">
+                                <label for="inputTimeUnit">TIME UNIT</label>
+                                <select th:field="*{preparationTime.timeUnit}" class="form-control" id="inputTimeUnit">
+                                    <option th:value="${TimeUnit}"
+                                            th:each="TimeUnit : ${T(mariusz.szmagara.cookbook.preparationtime.model.TimeUnit).values()}"
+                                            th:text="${TimeUnit.name()}">TIME UNIT</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="inputServes">SERVES</label>
+                        <input type="number" th:fi th:field="*{serves}" class="form-control" id="inputServes">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="inputCategory">SELECT THE CATEGORY OF RECIPE</label>
+                        <select class="form-control" th:field="*{category}" id="inputCategory">
+                            <option th:value="${category}"
+                                    th:each="category : ${T(mariusz.szmagara.cookbook.recipe.model.Category).values()}"
+                                    th:text="${category.name()}">CATEGORY</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="inputLikesCounter">LIKES COUNTER</label>
+                        <input type="number" th:field="*{likesCounter}" class="form-control" id="inputLikesCounter">
+                    </div>
+                    <h2>
+                        INGREDIENTS:
+                    </h2>
+                    <div class="form-group col-md-8" th:each="ingredient, stat : *{ingredients}">
+                        <input type="hidden" th:field="*{ingredients[__${stat.index}__].id}"/>
+                        <input type="hidden" th:field="*{ingredients[__${stat.index}__].recipe.id}"/>
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="inputQuantity">QUANTITY</label>
+                                <input type="number" th:field="*{ingredients[__${stat.index}__].quantity}" class="form-control" step="1" id="inputQuantity">
+                            </div>
+                            <div class="col-sm">
+                                <label for="inputMeasurement">MEASUREMENT</label>
+                                <select th:field="*{ingredients[__${stat.index}__].measurement}" class="form-control" id="inputMeasurement">
+                                    <option th:value="${measurement}"
+                                            th:each="measurement : ${T(mariusz.szmagara.cookbook.ingredient.model.Measurement).values()}"
+                                            th:text="${measurement.name()}">MEASUREMENT</option>
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <label for="inputIngredient">INGREDIENT</label>
+                                <input type="text" th:field="*{ingredients[__${stat.index}__].name}" class="form-control" id="inputIngredient">
+                            </div>
+                        </div>
+                    </div>
+                    <h2>
+                        PREPARATION INSTRUCTIONS:
+                    </h2>
+                    <div class="form-group col-md-8">
+                        <label for="inputPreparationInstructions">PREPARATION INSTRUCTIONS</label>
+                        <textarea class="form-control" th:field="*{preparationInstructions}" id="inputPreparationInstructions" rows="25" ></textarea>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary" id="submit">Modify</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+</body>
+</html>

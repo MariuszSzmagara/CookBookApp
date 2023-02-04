@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout.html}"
+      lang="en">
+<head>
+    <title>
+        Modify user form
+    </title>
+</head>
+<body>
+<div>
+    <section layout:fragment="content">
+        <div class="container">
+            <h2 style="text-align: center">
+                <strong>
+                    MODIFY AN ACCOUNT
+                </strong>
+            </h2>
+            <form action="#" th:action="@{/signUp}" method="post" th:object="${userToModify}">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-group col-md-8">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="inputFirstName">FIRST NAME</label>
+                                <input type="text" th:field="*{firstName}" class="form-control" id="inputFirstName" placeholder="Enter first name">
+                            </div>
+                            <div class="col-sm">
+                                <label for="inputLastName">LAST NAME</label>
+                                <input type="text"  th:field="*{lastName}" class="form-control" id="inputLastName" placeholder="Enter last name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="inputDateOfBirth">DATE OF BIRTH</label>
+                                <input type="date"  th:field="*{dateOfBirth}" class="form-control" id="inputDateOfBirth" placeholder="Choose date of birth">
+                            </div>
+                            <div class="col-sm">
+                                <label for="inputEmailAddress">EMAIL ADDRESS</label>
+                                <p th:errors="*{emailAddress}">Email errors</p>
+                                <input type="text"  th:field="*{emailAddress}" class="form-control" id="inputEmailAddress" placeholder="Enter email address">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <div class="row">
+                            <label class="form-check-label" for="inputSignedUpForNewsletter">SIGNED UP FOR NEWSLETTER</label>
+                            <input type="checkbox"  th:field="*{signedUpForNewsletter}" class="form-check-input" id="inputSignedUpForNewsletter">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="inputUserName">USER NAME</label>
+                                <input type="text"  th:field="*{userName}" class="form-control" id="inputUserName" placeholder="Enter user name">
+                            </div>
+                            <div class="col-sm">
+                                <label for="inputPassword">PASSWORD</label>
+                                <input type="text"  th:field="*{password} "class="form-control" id="inputPassword" placeholder="Enter password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label class="form-check-label" for="inputAuthority">AUTHORITY</label>
+                        <div class="row"  th:each="role, stat : *{roles}">
+                            <input type="hidden" th:field="*{roles[__${stat.index}__].id}"/>
+                            <input type="hidden" th:field="*{roles[__${stat.index}__].user.id}"/>
+                            <select class="form-control" th:field="*{roles[__${stat.index}__].authority}" id="inputAuthority">
+                                <option th:value="${authority}"
+                                        th:each="authority : ${T(mariusz.szmagara.cookbook.user.model.Authority).values()}"
+                                        th:text="${authority.name()}">AUTHORITY</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group  col-md-8">
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary btn-block" id="submit">
+                                MODIFY
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+</body>
+</html>

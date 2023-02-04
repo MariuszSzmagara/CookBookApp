@@ -1,0 +1,58 @@
+body {
+    padding-bottom: 50px;
+}
+
+.recipe-box .box-image {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.box-image img {
+    width: 100%;
+    border: none;
+}
+
+.current-and-forecast-weather-container {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+.current-and-forecast-weather-container div {
+    color: white;
+    padding: .5em;
+    flex: 1;
+}
+
+.current-weather-container {
+    background: chartreuse;
+}
+
+.forecast-weather-container {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    background: coral;
+}
+
+
+.forecast-weather-item {
+    background: darkblue;
+    padding: 10px;
+}
+
+.current-weather-item {
+    background: crimson;
+    padding: 10px;
+}
+
+footer {
+    position: fixed;
+    height: 50px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: left;
+}

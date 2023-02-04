@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout}"
+      lang="en">
+<head>
+  <title>
+    Sign up from
+  </title>
+</head>
+<body>
+<div>
+  <section layout:fragment="content">
+    <div class="container">
+      <h2 style="text-align: center">
+        <strong>
+          CREATE AN ACCOUNT
+        </strong>
+      </h2>
+      <form novalidate action="#" th:action="@{/signUp}" method="post" th:object="${newUser}">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="form-group col-md-8">
+            <div class="row">
+              <div class="col-sm">
+
+                <label for="inputFirstName">FIRST NAME</label>
+                <input type="text" th:field="*{firstName}" class="form-control" id="inputFirstName" placeholder="Enter first name">
+                <p style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
+                  ERROR MESSAGE
+                </p>
+              </div>
+              <div class="col-sm">
+                <label for="inputLastName">LAST NAME</label>
+                <input type="text"  th:field="*{lastName}" class="form-control" id="inputLastName" placeholder="Enter last name">
+                <p style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+                  ERROR MESSAGE
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-8">
+            <div class="row">
+              <div class="col-sm">
+                <label for="inputDateOfBirth">DATE OF BIRTH</label>
+                <input type="date"  th:field="*{dateOfBirth}" class="form-control" id="inputDateOfBirth" placeholder="Choose date of birth">
+                <p style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">
+                  ERROR MESSAGE
+                </p>
+              </div>
+              <div class="col-sm">
+                <label for="inputEmailAddress">EMAIL ADDRESS</label>
+                <input type="text"  th:field="*{emailAddress}" class="form-control" id="inputEmailAddress" placeholder="Enter email address">
+                <p style="color: red" th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}">
+                  ERROR MESSAGE
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-8">
+            <div class="row">
+              <div class="col-sm">
+                <label for="inputAddressStreet">STREET</label>
+                <input type="text" th:field="*{streetFlatAndHouseNumber}" class="form-control" id="inputAddressStreet" placeholder="Enter street, house and flat number">
+                <p style="color: red" th:if="${#fields.hasErrors('streetFlatAndHouseNumber')}" th:errors="*{streetFlatAndHouseNumber}">
+                  ERROR MESSAGE
+                </p>
+              </div>
+              <div class="col-sm">
+                <label for="inputAddressCity">CITY</label>
+                <input type="text"  th:field="*{city}" class="form-control" id="inputAddressCity" placeholder="Enter city name">
+                <p style="color: red" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">
+                  ERROR MESSAGE
+                </p>
+              </div>
+              <div class="col-sm">
+                <label for="inputAddressPostalCode">POSTAL CODE</label>
+                <input type="text"  th:field="*{postalCode}" class="form-control" id="inputAddressPostalCode" placeholder="00-000">
+                <p style="color: red" th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}">
+                  ERROR MESSAGE
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-8">
+            <label class="form-check-label" for="inputSignedUpForNewsletter">SIGNED UP FOR NEWSLETTER</label>
+            <input type="checkbox"  th:field="*{signedUpForNewsletter}" class="form-check-input" id="inputSignedUpForNewsletter">
+          </div>
+          <div class="form-group col-md-8">
+            <div class="row">
+              <div class="col-sm">
+                <label for="inputUserName">USER NAME</label>
+                <input type="text"  th:field="*{userName}" class="form-control" id="inputUserName" placeholder="Enter user name">
+                <p style="color: red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">
+                  ERROR MESSAGE
+                </p>
+              </div>
+              <div class="col-sm">
+                <label for="inputPassword">PASSWORD</label>
+                <input type="text"  th:field="*{password}" class="form-control" id="inputPassword" placeholder="Enter password">
+                <p style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                  ERROR MESSAGE
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-8">
+            <input type="checkbox"  th:field="*{agreedToTermsAndConditions}" class="form-check-input" id="inputTermsAndConditionsAgreement">
+            <span>
+            Check here to indicate that you have read and agree to the terms presented in the
+            <a th:href="@{/termsAndConditionsAgreement}">
+              TERMS AND CONDITIONS AGREEMENT
+            </a>
+          </span>
+            <p style="color: red" th:if="${#fields.hasErrors('agreedToTermsAndConditions')}" th:errors="*{agreedToTermsAndConditions}">
+              ERROR MESSAGE
+            </p>
+          </div>
+          <div class="form-group  col-md-8">
+            <button type="submit" class="btn btn-primary btn-block" id="submit">
+              SIGN UP
+            </button>
+          </div>
+          <div class="form-group col-md-3">
+          <span>
+            Have an account?
+            <a th:href="@{/signIn}">
+              SIGN IN
+            </a>
+          </span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+</body>
+</html>

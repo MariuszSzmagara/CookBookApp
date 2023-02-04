@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<header layout:fragment="common-header">
+    <nav class="navbar fixed-top navbar-expand-lg  navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/static" th:href="@{/}">
+                <i class="glyphicon glyphicon-book"></i>
+                <strong>
+                    COOKBOOK
+                </strong>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            RECIPES
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategory">
+                            <li>
+                                <a class="dropdown-item"
+                                   th:href="|/recipes/${category}|"
+                                   th:each="category : ${T(mariusz.szmagara.cookbook.recipe.model.Category).values()}"
+                                   th:text="${category.name()}">
+                                    CATEGORY
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/static" th:href="@{/}">
+                                    ALL
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/recipes/orderByLikes}">
+                                    RECIPES BY LIKES
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/newRecipe}">
+                            ADD NEW RECIPE
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/weather/defaultCityName}">
+                            WEATHER
+                        </a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/admin/panel}">
+                            ADMIN PANEL
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li th:unless="${#authorization.expr('isAuthenticated()')}">
+                        <a th:href="@{/signIn}" style="color: white">
+                        <span class="glyphicon glyphicon-log-in" style="color: white">
+                        </span>
+                            SIGN IN
+                        </a>
+                    </li>
+                    <li th:if="${#authorization.expr('isAuthenticated()')}" class="nav-item dropdown">
+                        <a style="color: white" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user" style="color: white" th:text="| ${#authentication.getPrincipal().getFullName()}|">
+                        </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a th:href="|/user/account/modify|" style="color: black">
+                        <span class=" glyphicon glyphicon-cog" style="color: black">
+                        </span>
+                                ACCOUNT SETTINGS
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a th:href="@{/signOut}" style="color: black">
+                        <span class="glyphicon glyphicon-log-out" style="color: black">
+                        </span>
+                                SIGN OUT
+                            </a>
+                        </div>
+                    </li>
+                    <li th:unless="${#authorization.expr('isAuthenticated()')}">
+                        <a th:href="@{/signUp}" style="color: white">
+                        <span class="glyphicon glyphicon-user" style="color: white">
+                        </span>
+                            SIGN UP
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+</body>
+</html>

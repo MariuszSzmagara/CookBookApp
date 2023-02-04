@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="20221120002-init" author="Mariusz Szmagara">
+        <createTable tableName="recipe">
+            <column name="id" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="varchar(255)">
+            </column>
+            <column name="preparation_instructions" type="varchar(5000)">
+            </column>
+            <column name="category" type="varchar(255)">
+            </column>
+            <column name="serves" type="integer">
+            </column>
+            <column name="likes_counter" type="integer">
+            </column>
+            <column name="preparation_time" type="varchar(255)">
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
